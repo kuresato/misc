@@ -1,0 +1,18 @@
+﻿Ubuntu Server 14.04 入れる
+
+git入れる
+ apt-get install git
+
+DevStackをcloneする
+ git clone https://github.com/openstack-dev/devstack.git
+
+実行する
+ cd devstack
+ ./stack.sh
+
+何回かパスワード入力を求められるが、そのままEnterするとランダムに生成されたり、デフォルトが設定されるようなので、そのままEnterで進める。しばらく待つ。
+
+終わると Horizon is now abailable at http://xxx.xxx.xx.xx/ と表示されるので、そのURLにアクセスする。ユーザはadminとdemoの二つある。パスワードは完了メッセージに表示されたものを入力する。
+
+停止する
+./unstack.sh
