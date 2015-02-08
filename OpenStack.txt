@@ -16,3 +16,6 @@ DevStackをcloneする
 
 停止する
 ./unstack.sh
+
+再開する
+ ./rejoin-stack.sh
