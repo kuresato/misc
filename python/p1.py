@@ -1,1 +1,2 @@
-print "hello world."
+# -*- coding: utf-8 -*-
+print "こんにちは、世界！"
