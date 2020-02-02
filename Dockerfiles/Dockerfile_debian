@@ -1,0 +1,8 @@
+FROM debian
+RUN apt update \
+    && apt upgrade \
+    && apt install -y --no-install-recommends \
+       zsh \
+    && apt -y clean \
+    && rm -rf /var/lib/apt/lists/*
+CMD ["zsh"]
