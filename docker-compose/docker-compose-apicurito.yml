@@ -1,0 +1,9 @@
+version: "3.5"
+services:
+    apicurito:
+        image: apicurio/apicurito-ui:1.2.4
+        ports:
+            - 8080:8080
+#        volumes: 
+#        environment: 
+#        networks: 

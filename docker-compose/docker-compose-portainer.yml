@@ -1,0 +1,16 @@
+version: "3.5"
+services:
+  portainer:
+    image: portainer/portainer:1.24.1-alpine
+    ports: 
+      - '9000:9000'
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: >-
+      -H unix:///var/run/docker.sock
+      --admin-password '$$2y$$05$$Uf3e39.gEzSRvmjPoaay7.T8Q.IdK7qJ7K53XR6nQJ6mwhIqfgy/u'
+
+volumes:
+  portainer_data:
+    driver: local
