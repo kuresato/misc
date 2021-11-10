@@ -1,0 +1,35 @@
+version: '3'
+services:
+  web:
+    #image: 'gitlab/gitlab-ce:latest'
+    image: 'gitlab/gitlab-ce:14.4.2-ce.0'
+    restart: always
+    hostname: 'gitlab.10.64.180.202.nip.io'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.10.64.180.202.nip.io'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '10080:80'
+      - '10443:443'
+      - '10022:22'
+    volumes:
+      - gitlab-config:/etc/gitlab
+      - gitlab-logs:/var/log/gitlab
+      - gitlab-data:/var/opt/gitlab
+
+volumes:
+  gitlab-config:
+    driver: local
+  gitlab-logs:
+    driver: local
+  gitlab-data:
+    driver: local
+
+# start gitlab
+  # % docker-compose -f docker-compose-gitlab.yml up -d
+# view logs
+  # % docker-compose -f docker-compose-gitlab.yml logs -f
+# show root password
+  # % docker-compose -f docker-compose-gitlab.yml exec web grep 'Password:' /etc/gitlab/initial_root_password
+
