@@ -1,0 +1,38 @@
+version: '2'
+services:
+  postgresql:
+    image: docker.io/bitnami/postgresql:11
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USERNAME=bn_keycloak
+      - POSTGRESQL_DATABASE=bitnami_keycloak
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+
+  keycloak:
+    image: docker.io/bitnami/keycloak:15
+    depends_on:
+      - postgresql
+    ports:
+      - "9080:8080"
+    environment:
+      - KEYCLOAK_CREATE_ADMIN_USER=true       # 起動時に管理者ユーザーを作成
+      - KEYCLOAK_ADMIN_USER=user              # 管理者のデフォルトユーザー
+      - KEYCLOAK_ADMIN_PASSWORD=bitnami       # 管理者のデフォルトのパスワード
+      - KEYCLOAK_MANAGEMENT_USER=manager      # WildFlyのデフォルト管理ユーザー
+      - KEYCLOAK_MANAGEMENT_PASSWORD=bitnami1 # WildFlyのデフォルトの管理パスワード
+      - KEYCLOAK_HTTP_PORT=8080               # KeycloakHTTPポート
+      - KEYCLOAK_HTTPS_PORT=8443              # KeycloakHTTPSポート
+      #- KEYCLOAK_BIND_ADDRESS=x.x.x.x        # Keycloakバインドアドレス
+
+volumes:
+  postgresql_data:
+    driver: local
+
+# https://hub.docker.com/r/bitnami/keycloak
+#
+# 管理者画面にHTTPアクセスできるようにするには、コンテナにアクセスして以下のコマンドを実行
+# $ docker-compose -f docker-compose-keycloak.yml exec -- keycloak bash
+# $ kcadm.sh update realms/master -s sslRequired=NONE --server http://localhost:8080/auth --realm master --user user
+#
